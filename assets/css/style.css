@@ -1,0 +1,138 @@
+body {
+    background: url('../img/background.webp') no-repeat center center fixed;
+    background-size: cover;
+    color: #ffffff;
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    transition: background 0.5s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Header and Navigation */
+header {
+    background-color: rgba(31, 31, 31, 0.8);
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    gap: 20px;
+}
+
+nav ul li {
+    display: inline;
+}
+
+nav ul li a {
+    color: #ffffff;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: all 0.3s ease-in-out;
+    border: 2px solid transparent;
+}
+
+nav ul li a:hover {
+    background-color: #ff5722;
+    border-color: #ffffff;
+    transform: scale(1.1);
+}
+
+/* User Menu */
+.user-menu {
+    position: relative;
+    display: inline-block;
+}
+
+.user-btn {
+    background-color: transparent;
+    color: white;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    padding: 10px 20px;
+}
+
+.dropdown {
+    display: none;
+    position: absolute;
+    right: 0;
+    background-color: rgba(31, 31, 31, 0.9);
+    min-width: 200px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    text-align: left;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.dropdown p {
+    margin: 0;
+    padding: 10px;
+    color: white;
+    font-size: 14px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.dropdown a {
+    color: white;
+    padding: 10px;
+    display: block;
+    text-decoration: none;
+}
+
+.dropdown a:hover {
+    background-color: #ff5722;
+}
+
+.user-menu:hover .dropdown {
+    display: block;
+}
+
+/* Section Styling */
+section {
+    margin: 50px;
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 20px;
+    border-radius: 10px;
+    transition: transform 0.3s ease-in-out;
+}
+
+section:hover {
+    transform: scale(1.02);
+}
+
+/* Button Styling */
+.book-btn {
+    background-color: #ff5722;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin-top: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+}
+
+.book-btn:hover {
+    background-color: #e64a19;
+    transform: scale(1.1);
+}
+
+/* Footer */
+footer {
+    background-color: rgba(31, 31, 31, 0.8);
+    padding: 10px;
+    margin-top: auto;
+    text-align: center;
+    width: 100%;
+}
