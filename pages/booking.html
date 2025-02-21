@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Your Event</title>
+    <link rel="stylesheet" href="../assets/css/page/booking.css">
+
+</head>
+<body>
+
+    <div class="container">
+        <h2>Book Your Event</h2>
+        
+        <p id="error-message" class="error-message">All fields are required!</p>
+        <p id="success-message" class="success-message">Booking successful!</p>
+
+        <form id="booking-form">
+            <label for="eventType">Select Event Type:</label>
+            <select id="eventType">
+                <option value="WEDDING">Wedding</option>
+                <option value="ANNIVERSARY">Anniversary</option>
+                <option value="BIRTHDAY">Birthday</option>
+            </select>
+
+            <label for="bookingDate">Select Date:</label>
+            <input type="date" id="bookingDate">
+
+            <label for="address">Event Address:</label>
+            <input type="text" id="address" placeholder="Enter event address">
+
+            <button type="submit">Book Now</button>
+        </form>
+    </div>
+
+    <script src="../assets/js/page/booking.js"> </script>
+
+</body>
+</html>
