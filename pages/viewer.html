@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Viewer - Live Streaming</title>
+    <link rel="icon" href="data:,">
+    <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+    <link rel="stylesheet" href="../assets/css/page/viewer.css">
+</head>
+<body>
+    <h1>Viewer</h1>
+    <input type="text" id="streamIdInput" placeholder="Enter Stream ID" required>
+    <button id="joinButton" disabled>Join Stream</button>
+    <div id="placeholder" style="display: block;">
+        <p>Enter the Stream ID and click Join Stream to watch the live stream.</p>
+    </div>
+    <video id="video" autoplay playsinline></video>
+    <script src="../assets/js/page/viewer.js">
+    </script>
+</body>
+</html>

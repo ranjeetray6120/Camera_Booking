@@ -34,5 +34,5 @@ function redirectToBooking() {
 }
 
 function redirectToLiveStream() {
-    window.location.href = "live-stream.html";
+    window.location.href = "broadcaster.html";
 }

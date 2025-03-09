@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Broadcaster - Live Streaming</title>
+    <link rel="icon" href="data:,">
+    <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+    <link rel="stylesheet" href="../assets/css/page/broadcaster.css">
+</head>
+<body>
+    <h1>Broadcaster</h1>
+    <select id="bookingSelect"><option value="">Select a Booking ID</option></select>
+    <button id="startButton">Start Stream</button>
+    <button id="endButton" disabled>End Stream</button>
+    <p id="viewerUrl"></p>
+    <p id="streamIdDisplay">Stream ID: <span id="streamIdText"></span><button id="copyButton" style="display: none;">Copy</button></p>
+    <video id="video" autoplay muted></video>
+    <script src="../assets/js/page/broadcaster.js"></script>
+</body>
+</html>

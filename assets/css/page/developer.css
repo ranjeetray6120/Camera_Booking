@@ -1,0 +1,117 @@
+/* Dark Theme Styling */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #121212;
+    color: white;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    background: #1e1e1e;
+    position: fixed;
+    top: 0;
+    left: 0;
+    padding: 20px;
+    transition: 0.3s;
+}
+
+.sidebar h2 {
+    text-align: center;
+}
+
+.sidebar ul {
+    list-style: none;
+    padding: 0;
+}
+
+.sidebar ul li {
+    padding: 10px;
+    margin: 5px 0;
+    background: #333;
+    cursor: pointer;
+}
+
+.sidebar ul li a {
+    text-decoration: none;
+    color: white;
+    display: block;
+}
+
+/* Sidebar Toggle */
+#sidebarToggle {
+    display: none;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background: #333;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+}
+
+/* Content */
+.content {
+    margin-left: 270px;
+    padding: 20px;
+}
+
+h1, h2 {
+    text-align: center;
+}
+
+/* Tables */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    border: 1px solid white;
+    padding: 10px;
+    text-align: center;
+}
+
+/* Form */
+.center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+form input, button {
+    margin: 10px;
+    padding: 10px;
+    width: 100%;
+    max-width: 300px;
+    border: none;
+    border-radius: 5px;
+}
+
+button {
+    background: #007bff;
+    color: white;
+    cursor: pointer;
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 100px;
+        overflow: hidden;
+    }
+
+    .content {
+        margin-left: 110px;
+    }
+
+    #sidebarToggle {
+        display: block;
+    }
+}

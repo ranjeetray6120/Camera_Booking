@@ -1,33 +1,44 @@
 // 🌟 Global Variables
-let loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
+let loggedInUser = JSON.parse(localStorage.getItem("loggedInUser")) || {};
 let bookings = [];
+let viewbookings = [];
 
-// 🚀 Fetch all bookings
+// 🚀 Fetch all bookings and separate by status
 async function fetchBookings() {
     try {
-        const response = await fetch('http://localhost:8080/bookings');
+        const response = await fetch('http://localhost:8080/bookings'); // Fetch all bookings
         if (!response.ok) throw new Error('Failed to fetch bookings.');
-        bookings = await response.json();
+        const allBookings = await response.json();
+
+        // Separate bookings by status
+        bookings = allBookings.filter(booking => booking.status === 'PENDING');
+        viewbookings = allBookings.filter(booking => booking.status === 'APPROVED');
 
         // Store bookings in localStorage
         localStorage.setItem('bookings', JSON.stringify(bookings));
+        localStorage.setItem('viewbookings', JSON.stringify(viewbookings));
 
         // Populate tables
         populateManageTable(bookings);
-        populateViewTable(bookings);
+        populateViewTable(viewbookings);
     } catch (error) {
         console.error('Error fetching bookings:', error);
+        alert('Failed to load bookings. Check the console for details.');
     }
 }
 
 // 🟢 Manage Bookings: Approve/Reject Actions
 function populateManageTable(bookings) {
     const tbody = document.querySelector('#manage-booking-table tbody');
+    if (!tbody) {
+        console.error('Table body #manage-booking-table not found.');
+        return;
+    }
     tbody.innerHTML = '';
 
+    const today = new Date();
     bookings.forEach(booking => {
         const bookingDate = new Date(booking.bookingDate);
-        const today = new Date();
 
         // Show only future bookings for management
         if (bookingDate >= today) {
@@ -50,18 +61,21 @@ function populateManageTable(bookings) {
 }
 
 // 🔵 View Bookings: Only show upcoming bookings (no action buttons)
-// 🔵 View Bookings: Only show upcoming bookings (no action buttons)
 function populateViewTable(bookings) {
     const tbody = document.querySelector('#view-booking-table tbody');
+    if (!tbody) {
+        console.error('Table body #view-booking-table not found.');
+        return;
+    }
     tbody.innerHTML = '';
 
+    const today = new Date();
     bookings.forEach(booking => {
         const bookingDate = new Date(booking.bookingDate);
-        const today = new Date();
 
         // Show only upcoming bookings
         if (bookingDate >= today) {
-            const statusClass = getStatusClass(booking.status); // Get the color class based on status
+            const statusClass = getStatusClass(booking.status);
 
             const row = `
                 <tr>
@@ -77,7 +91,6 @@ function populateViewTable(bookings) {
     });
 }
 
-
 // 🌟 Update booking status (Approve/Reject)
 async function updateBookingStatus(bookingId, status, button) {
     if (!confirm(`Are you sure you want to ${status.toLowerCase()} this booking?`)) return;
@@ -92,18 +105,24 @@ async function updateBookingStatus(bookingId, status, button) {
         if (!response.ok) throw new Error(`Failed to ${status.toLowerCase()} booking.`);
 
         // Update UI after status change
-        removeBookingFromStorage(bookingId);
+        removeBookingFromStorage(bookingId, status);
         button.closest('tr').remove();
         alert(`Booking ${status.toLowerCase()}d successfully.`);
+        fetchBookings(); // Refresh the bookings list
     } catch (error) {
         console.error(`Error updating booking status:`, error);
+        alert(`Failed to ${status.toLowerCase()} booking. Check the console for details.`);
     }
 }
 
-// ❌ Remove booking from localStorage after action
-function removeBookingFromStorage(bookingId) {
-    const updatedBookings = bookings.filter(booking => booking.id !== parseInt(bookingId));
-    localStorage.setItem('bookings', JSON.stringify(updatedBookings));
+// ❌ Remove booking from localStorage and arrays after action
+function removeBookingFromStorage(bookingId, status) {
+    const id = parseInt(bookingId);
+    if (status === 'APPROVED' || status === 'REJECTED') {
+        bookings = bookings.filter(booking => booking.id !== id);
+        localStorage.setItem('bookings', JSON.stringify(bookings));
+    }
+    // Note: viewbookings is updated via fetchBookings after approval
 }
 
 // 🎨 Add color based on status
@@ -127,7 +146,7 @@ function showUsers() {
 function showViewBookings() {
     document.getElementById("section-title").textContent = "View Bookings (Upcoming)";
     toggleSection("view-bookings-section");
-    populateViewTable(bookings);
+    populateViewTable(viewbookings);
 }
 
 // ⚙️ Show Manage Bookings
@@ -139,8 +158,14 @@ function showManageBookings() {
 
 // 📚 Toggle sections
 function toggleSection(sectionId) {
-    document.querySelectorAll(".content > div").forEach(div => div.style.display = "none");
-    document.getElementById(sectionId).style.display = "block";
+    const sections = document.querySelectorAll(".content > div");
+    sections.forEach(div => div.style.display = "none");
+    const section = document.getElementById(sectionId);
+    if (section) {
+        section.style.display = "block";
+    } else {
+        console.error(`Section ${sectionId} not found.`);
+    }
 }
 
 // 👥 Fetch users and display in the user section
@@ -149,21 +174,25 @@ function fetchUsers() {
         .then(response => response.json())
         .then(users => {
             const usersTable = document.getElementById("users-table");
-            usersTable.innerHTML = "<tr><th>Name</th><th>Email</th><th>Phone Number</th></tr>";
-
-            users.forEach(user => {
-                usersTable.innerHTML += `
-                    <tr>
-                        <td>${user.name}</td>
-                        <td>${user.email}</td>
-                        <td>${user.mobileNumber}</td>
-                        
-                    </tr>
-                `;
-            });
+            if (usersTable) {
+                usersTable.innerHTML = "<tr><th>Name</th><th>Email</th><th>Phone Number</th></tr>";
+                users.forEach(user => {
+                    usersTable.innerHTML += `
+                        <tr>
+                            <td>${user.name}</td>
+                            <td>${user.email}</td>
+                            <td>${user.mobileNumber}</td>
+                        </tr>
+                    `;
+                });
+            } else {
+                console.error("Users table not found.");
+            }
         })
         .catch(error => console.error("Error fetching users:", error));
 }
 
 // 🚀 Load data on page load
-document.addEventListener('DOMContentLoaded', fetchBookings);
+document.addEventListener('DOMContentLoaded', () => {
+    fetchBookings().catch(error => console.error('Failed to load bookings on page load:', error));
+});

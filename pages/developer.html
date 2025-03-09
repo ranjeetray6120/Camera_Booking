@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Management</title>
+    <link rel="stylesheet" href="../assets/css/page/developer.css">
+</head>
+
+<body>
+    <button id="sidebarToggle">☰</button>
+    <div class="sidebar">
+        <h2>Dashboard</h2>
+        <ul>
+            <li><a href="#create-admin">Create Admin</a></li>
+            <li><a href="#admin-list">View Admins</a></li>
+            <li><a href="#user-list">View Users</a></li>
+        </ul>
+    </div>
+
+    <div class="content">
+        <h1>Admin Management</h1>
+
+        <section id="create-admin" style="display: none;">
+            <div class="center">
+                <h2>Create Admin</h2>
+                <form id="createAdminForm">
+                    <input type="text" id="name" placeholder="Name" required>
+                    <input type="email" id="email" placeholder="Email" required>
+                    <input type="text" id="mobile" placeholder="Mobile Number" required>
+                    <input type="password" id="password" placeholder="Password" required>
+                    <input type="password" id="confirm-password" placeholder="Confirm Password" required>
+                    <button type="submit">Create Admin</button>
+                </form>
+            </div>
+        </section>
+
+        <section id="admin-list" style="display: none;">
+            <h2>All Admins</h2>
+            <table id="adminTable">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </section>
+
+        <section id="user-list" style="display: none;">
+            <h2>All Users</h2>
+            <table id="userTable">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </section>
+    </div>
+
+    <script src="../assets/js/page/developer.js"></script>
+</body>
+
+</html>
